@@ -27,7 +27,7 @@
 
 - GPU：NVIDIA RTX 6000 Ada 48GB（其他 Ada / 大显存卡可类比）
 - 系统：Windows + WSL2 Ubuntu 24.04
-- 模型候选：Qwen 27B FP8（Agent）+ Qwen3-Coder-30B-A3B-Instruct FP8/AWQ（编程）
+- 模型候选：Qwen3.8-27B-FP8（Agent）+ Qwen3-Coder-30B-A3B-Instruct FP8/AWQ（编程）
 - 推理框架：vLLM（Docker）
 
 ## 目录结构

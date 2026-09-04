@@ -32,16 +32,22 @@
 
 | 角色 | 候选 Hugging Face ID | 说明 |
 |------|----------------------|------|
-| 通用 Agent | `Qwen/Qwen3.6-27B-FP8` | 27B FP8；较新，注意 vLLM 版本要求可能偏高 |
-| 通用 Agent（备选） | `Qwen/Qwen3.5-27B-FP8` | 同为 27B FP8 线 |
-| 编程 | `Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8` | 官方 FP8；MoE，约 30.5B 总参 / 3.3B 激活 |
+| 通用 Agent | `Qwen/Qwen3.8-27B-FP8` | 当前默认：27B FP8，原生多模态；需较新 vLLM（建议 ≥ 0.27） |
+| 通用 Agent（备选） | `Qwen/Qwen3.6-27B-FP8` | 上一世代；镜像偏旧或 3.8 起不来时回退 |
+| 编程 | `Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8` | 官方 FP8；MoE，约 30.5B 总参 / 3.3B 激活（暂无 3.8 Coder） |
 | 编程（备选） | `QuantTrio/Qwen3-Coder-30B-A3B-Instruct-AWQ` 等 | 4bit AWQ，更省显存；社区量化需核对 vLLM 版本 |
+
+**选型注意：**
+
+- `Qwen3.8-Max` / `Qwen3.8-2.4T-A95B` **不是**本机 48GB 目标；权重体积是 TB 级。
+- 3.8-27B 的 BF16 权重约 50GB+，单卡 48GB 请用 **FP8**（权重大约三十多 GB，再留 KV）。
+- 选镜像时优先查 [vLLM Recipes · Qwen3.8-27B](https://recipes.vllm.ai/Qwen/Qwen3.8-27B)，确认标签是否已支持该架构。
 
 下文用环境变量，避免全文改 ID：
 
 ```bash
 # 按你的最终选择修改
-export AGENT_MODEL="Qwen/Qwen3.6-27B-FP8"
+export AGENT_MODEL="Qwen/Qwen3.8-27B-FP8"
 export CODER_MODEL="Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8"
 ```
 
@@ -57,8 +63,8 @@ export CODER_MODEL="Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8"
 
 | Windows 驱动情况 | vLLM 镜像 CUDA 建议 |
 |------------------|---------------------|
-| 仍为 552.x / 上限 ~12.4 | 选带 **CUDA 12.4** 的 vLLM 镜像标签 |
-| 已更新 Enterprise，支持 12.6/12.8 | 可用更新的官方 GPU 镜像 |
+| 仍为 552.x / 上限 ~12.4 | 选带 **CUDA 12.4** 的 vLLM 镜像标签（可能跑不动最新 Qwen3.8） |
+| 已更新，支持 12.6 / 12.8 / 13.x | 用较新官方 GPU 镜像；跑 Qwen3.8 优先选带新 vLLM 的标签（如 ≥ 0.27） |
 
 镜像名会随 vLLM 发布变化。请到 [vLLM Docker 说明](https://docs.vllm.ai/en/latest/getting_started/installation/gpu.html) 或 Docker Hub / GitHub Container Registry 查当前推荐标签。下文用占位：
 
@@ -109,7 +115,8 @@ docker run -d --name vllm-agent \
   --port 8000 \
   --max-model-len 32768 \
   --gpu-memory-utilization 0.90 \
-  --trust-remote-code
+  --trust-remote-code \
+  --reasoning-parser qwen3
 ```
 
 说明：
@@ -121,6 +128,7 @@ docker run -d --name vllm-agent \
 | `--max-model-len` | 限制上下文；越大 KV 越吃显存 |
 | `--gpu-memory-utilization` | vLLM 预留显存比例；OOM 时可降到 0.85 |
 | `--trust-remote-code` | 部分 Qwen 架构需要 |
+| `--reasoning-parser qwen3` | Qwen3.8 默认带思考块；不加则整段 reasoning 可能挤进 `content` |
 
 看日志：
 
