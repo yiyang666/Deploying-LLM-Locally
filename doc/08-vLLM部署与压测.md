@@ -66,14 +66,34 @@ export CODER_MODEL="Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8"
 | 仍为 552.x / 上限 ~12.4 | 选带 **CUDA 12.4** 的 vLLM 镜像标签（可能跑不动最新 Qwen3.8） |
 | 已更新，支持 12.6 / 12.8 / 13.x | 用较新官方 GPU 镜像；跑 Qwen3.8 优先选带新 vLLM 的标签（如 ≥ 0.27） |
 
-镜像名会随 vLLM 发布变化。请到 [vLLM Docker 说明](https://docs.vllm.ai/en/latest/getting_started/installation/gpu.html) 或 Docker Hub / GitHub Container Registry 查当前推荐标签。下文用占位：
+镜像名会随 vLLM 发布变化。**怎么选标签（推荐按这个顺序）：**
+
+1. 打开 [vLLM Releases](https://github.com/vllm-project/vllm/releases)，点进最新正式版（例如 `v0.28.0`）。
+2. 在页面里找 **Docker Images** 表格，复制对应行的 `docker pull ...` 后面那段。
+3. 对照你本机 `nvidia-smi` 右上角的 **CUDA Version**（驱动上限）：
+
+| 驱动 CUDA 上限 | 选哪一行 |
+|----------------|----------|
+| ≥ 13.0（例如你现在的 13.2） | 默认那行：`vllm/vllm-openai:v0.28.0`（即 cu130） |
+| 只有 12.x | 带 `-cu129` 的行，或更旧发行版里的 cu126/cu124 标签 |
+| 仍是 552.x / ~12.4 | 需要找仍提供 cu124 的旧版镜像，或先升级驱动 |
+
+4. 备查标签列表：[Docker Hub · vllm/vllm-openai/tags](https://hub.docker.com/r/vllm/vllm-openai/tags)  
+   规则：**镜像里的 CUDA ≤ 驱动上限**；跑 Qwen3.8 请用 **≥ 0.27** 的正式版，不要用 `nightly` 除非你在排障。
+
+**按本教程当前时点（驱动已支持 13.2）可直接：**
 
 ```bash
-# 示例：请替换为你查到的真实标签
-export VLLM_IMAGE="vllm/vllm-openai:latest"
+export VLLM_IMAGE="vllm/vllm-openai:v0.28.0"
 ```
 
-若 `latest` 需要的 CUDA 高于你的驱动，改用文档中标明 CUDA 12.4 的旧标签。
+若以后有更新的正式版（`v0.29.0` 等），到 Releases 页换成对应默认 CUDA 行即可。`latest` 也能用，但版本会变，出问题时不好复现，初学更建议钉死版本号。
+
+若默认 cu130 镜像拉不下来或启动报 CUDA 不兼容，再试同版本的 `-cu129`：
+
+```bash
+export VLLM_IMAGE="vllm/vllm-openai:v0.28.0-cu129"
+```
 
 ---
 
