@@ -1,6 +1,6 @@
-# 07 · vLLM 部署与压测
+# 08 · vLLM 部署与压测
 
-← [06 Container Toolkit](06-安装NVIDIA-Container-Toolkit.md) · 下一步 → [08 显存策略](08-双模型显存策略.md)
+← [07 Container Toolkit](07-安装NVIDIA-Container-Toolkit.md) · 下一步 → [09 显存策略](09-双模型显存策略.md)
 
 ---
 
@@ -12,7 +12,7 @@
 
 - 可复用的 `docker run` / 启动命令
 - `curl` 成功拿到模型回复
-- 对显存占用与上下文长度的第一手感觉（为 [08](08-双模型显存策略.md) 做准备）
+- 对显存占用与上下文长度的第一手感觉（为 [09](09-双模型显存策略.md) 做准备）
 
 ---
 
@@ -51,7 +51,7 @@ export CODER_MODEL="Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8"
 
 ## 前置条件
 
-- [06](06-安装NVIDIA-Container-Toolkit.md) 通过：容器内 `nvidia-smi` 成功  
+- [07](07-安装NVIDIA-Container-Toolkit.md) 通过：容器内 `nvidia-smi` 成功  
 - 磁盘够大（单模型常 **20–60GB+**，看量化与是否含多模态文件）  
 - 驱动与镜像 CUDA 匹配（见下表）
 
@@ -132,7 +132,7 @@ docker logs -f vllm-agent
 
 ### 4. 切换测 Coder 模型时
 
-先停 Agent（48GB 上默认不要双开，见 [08](08-双模型显存策略.md)）：
+先停 Agent（48GB 上默认不要双开，见 [09](09-双模型显存策略.md)）：
 
 ```bash
 docker stop vllm-agent && docker rm vllm-agent
@@ -217,7 +217,7 @@ done
 ## 常见问题
 
 **Q：启动时报 CUDA / driver 版本不够？**  
-A：换更低 CUDA 的 vLLM 镜像，或回到 [02](02-更新Windows-NVIDIA驱动.md) 升级驱动。
+A：换更低 CUDA 的 vLLM 镜像，或回到 [04](04-更新Windows-NVIDIA驱动.md) 升级驱动。
 
 **Q：下载模型极慢或失败？**  
 A：配置 HF 镜像、`HF_ENDPOINT`，或 ModelScope 预下载到 `$HOME/models`，`--model` 指本地路径。
@@ -232,4 +232,4 @@ A：WSL 端口转发因 Windows 版本而异；先本机 `127.0.0.1` 验通，�
 
 ## 下一步
 
-有显存与延迟数据后 → **[08 - 双模型显存策略](08-双模型显存策略.md)**
+有显存与延迟数据后 → **[09 - 双模型显存策略](09-双模型显存策略.md)**

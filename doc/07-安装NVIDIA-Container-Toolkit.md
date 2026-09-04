@@ -1,6 +1,6 @@
-# 06 · 安装 NVIDIA Container Toolkit
+# 07 · 安装 NVIDIA Container Toolkit
 
-← [05 Docker Engine](05-WSL安装Docker-Engine.md) · 下一步 → [07 vLLM](07-vLLM部署与压测.md)
+← [06 Docker Engine](06-WSL安装Docker-Engine.md) · 下一步 → [08 vLLM](08-vLLM部署与压测.md)
 
 ---
 
@@ -27,8 +27,8 @@ could not select device driver "" with capabilities: [[gpu]]
 
 ## 前置条件
 
-- [05](05-WSL安装Docker-Engine.md) 完成，`hello-world` 成功  
-- WSL 内宿主机 `nvidia-smi` 正常（[03](03-重启后Windows与WSL验收.md)）  
+- [06](06-WSL安装Docker-Engine.md) 完成，`hello-world` 成功  
+- WSL 内宿主机 `nvidia-smi` 正常（[05](05-重启后Windows与WSL验收.md)）  
 - 使用的是 **apt 安装的 Docker Engine**，不是 snap  
 
 官方参考：[NVIDIA Container Toolkit 安装文档](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
@@ -126,4 +126,4 @@ A：跑 vLLM **容器**时，CUDA 已在镜像里，主机不必再装完整 CUD
 
 ## 下一步
 
-GPU 容器已通 → **[07 - vLLM 部署与压测](07-vLLM部署与压测.md)**
+GPU 容器已通 → **[08 - vLLM 部署与压测](08-vLLM部署与压测.md)**

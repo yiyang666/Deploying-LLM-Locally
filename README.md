@@ -1,6 +1,6 @@
 # Deploying LLM Locally
 
-在 **Windows + WSL2 Ubuntu 24.04 + NVIDIA GPU** 上，从驱动到 Docker、再到 vLLM，本地部署大模型的分步自学教程。
+在 **Windows + WSL2 Ubuntu 24.04 + NVIDIA GPU** 上，从安装 WSL、无人值守常驻，到 Docker / vLLM，本地部署大模型的分步自学教程。
 
 ## 文档入口
 
@@ -12,13 +12,15 @@
 
 | 步骤 | 内容 |
 |------|------|
-| 01 | 环境现状与验收基线 |
-| 02 | 更新 Windows NVIDIA 驱动（RTX Enterprise Production Branch） |
-| 03 | 重启后 Windows / WSL `nvidia-smi` 验收 |
-| 05 | WSL 安装 Docker Engine |
-| 06 | 安装 NVIDIA Container Toolkit |
-| 07 | vLLM 部署与压测 |
-| 08 | 双模型显存策略（常驻一个 vs 按需切换） |
+| 01 | 安装 WSL2 与 Ubuntu |
+| 02 | 开机自启与 WSL 常驻（Task Scheduler + keeper + Tailscale） |
+| 03 | 环境现状与验收基线 |
+| 04 | 更新 Windows NVIDIA 驱动（RTX Enterprise Production Branch） |
+| 05 | 重启后 Windows / WSL `nvidia-smi` 验收 |
+| 06 | WSL 安装 Docker Engine |
+| 07 | 安装 NVIDIA Container Toolkit |
+| 08 | vLLM 部署与压测 |
+| 09 | 双模型显存策略（常驻一个 vs 按需切换） |
 | 附录 | 命令速查与故障表 |
 
 ## 目标机参考配置

@@ -1,6 +1,6 @@
-# 03 · 重启后 Windows 与 WSL 验收
+# 05 · 重启后 Windows 与 WSL 验收
 
-← [02 更新驱动](02-更新Windows-NVIDIA驱动.md) · 下一步 → [05 Docker Engine](05-WSL安装Docker-Engine.md)
+← [04 更新驱动](04-更新Windows-NVIDIA驱动.md) · 下一步 → [06 Docker Engine](06-WSL安装Docker-Engine.md)
 
 ---
 
@@ -19,7 +19,7 @@
 
 ## 前置条件
 
-- [02](02-更新Windows-NVIDIA驱动.md) 安装程序已成功结束（或你明确跳过更新）
+- [04](04-更新Windows-NVIDIA驱动.md) 安装程序已成功结束（或你明确跳过更新）
 
 ---
 
@@ -74,7 +74,7 @@ nvidia-smi
 
 ### 4.（推荐）与基线对比
 
-打开 [01](01-环境现状与验收基线.md) 保存的旧输出，并排对比：
+打开 [03](03-环境现状与验收基线.md) 保存的旧输出，并排对比：
 
 | 项 | 基线 | 现在 |
 |----|------|------|
@@ -106,10 +106,10 @@ A：按顺序试：`wsl --shutdown` → 重进；确认 Windows 驱动装的是�
 A：以 NVIDIA 发布说明为准；有的小版本驱动不抬高 CUDA 上限。只要版本号已更新且稳定即可继续。
 
 **Q：我跳过了驱动更新？**  
-A：本节仍建议跑一遍验收，确认「准备装 Docker 前」GPU 双端健康，然后去 [05](05-WSL安装Docker-Engine.md)。
+A：本节仍建议跑一遍验收，确认「准备装 Docker 前」GPU 双端健康，然后去 [06](06-WSL安装Docker-Engine.md)。
 
 ---
 
 ## 下一步
 
-GPU 双端健康 → **[05 - WSL 安装 Docker Engine](05-WSL安装Docker-Engine.md)**
+GPU 双端健康 → **[06 - WSL 安装 Docker Engine](06-WSL安装Docker-Engine.md)**

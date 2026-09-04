@@ -1,6 +1,6 @@
-# 05 · WSL 安装 Docker Engine
+# 06 · WSL 安装 Docker Engine
 
-← [03 重启验收](03-重启后Windows与WSL验收.md) · 下一步 → [06 Container Toolkit](06-安装NVIDIA-Container-Toolkit.md)
+← [05 重启验收](05-重启后Windows与WSL验收.md) · 下一步 → [07 Container Toolkit](07-安装NVIDIA-Container-Toolkit.md)
 
 ---
 
@@ -31,7 +31,7 @@ vLLM 依赖 CUDA、一堆系统库。用官方/社区镜像可以：
 
 ## 前置条件
 
-- [03](03-重启后Windows与WSL验收.md) 通过：WSL 内 `nvidia-smi` 正常  
+- [05](05-重启后Windows与WSL验收.md) 通过：WSL 内 `nvidia-smi` 正常  
 - 你在 WSL 里有 `sudo` 权限  
 - 网络能访问 Docker 官方 apt 源（国内可能需镜像，见文末）
 
@@ -39,31 +39,15 @@ vLLM 依赖 CUDA、一堆系统库。用官方/社区镜像可以：
 
 ## 操作步骤（全程在 WSL）
 
-### 0. 启用 systemd（Docker 服务需要）
+### 0. 确认 systemd（Docker 服务需要）
 
-较新的 WSL 支持 systemd。检查：
+若已在 [01](01-安装WSL2与Ubuntu.md) 开启 systemd，这里只需确认：
 
 ```bash
 ps -p 1 -o comm=
 ```
 
-若输出是 `systemd`，跳到步骤 1。  
-若是 `init` 或其他，编辑（没有就新建）`/etc/wsl.conf`：
-
-```bash
-sudo tee /etc/wsl.conf >/dev/null <<'EOF'
-[boot]
-systemd=true
-EOF
-```
-
-然后在 **Windows** PowerShell 执行：
-
-```powershell
-wsl --shutdown
-```
-
-再重新进入 WSL，再次确认 `ps -p 1 -o comm=` 为 `systemd`。
+输出应为 `systemd`。若不是，按 [01](01-安装WSL2与Ubuntu.md) 第 4 步配置 `/etc/wsl.conf` 后执行 `wsl --shutdown` 再进入。
 
 ### 1. 卸掉冲突的旧 Docker（尤其是 snap）
 
@@ -139,7 +123,7 @@ docker run --rm hello-world
 ## 常见问题
 
 **Q：`systemctl` 不可用 / docker 启不来？**  
-A：多半 systemd 未开。回到步骤 0，改 `wsl.conf` 后 `wsl --shutdown`。
+A：多半 systemd 未开。回到 [01](01-安装WSL2与Ubuntu.md) 配置 `/etc/wsl.conf` 后 `wsl --shutdown`。
 
 **Q：`permission denied` 连 docker.sock？**  
 A：用户未进 `docker` 组，或未重新登录。临时用 `sudo docker`。
@@ -154,4 +138,4 @@ A：本教程按「WSL 内 Engine」写。若坚持 Desktop，Toolkit 配置方�
 
 ## 下一步
 
-Docker 能跑 → **[06 - 安装 NVIDIA Container Toolkit](06-安装NVIDIA-Container-Toolkit.md)**
+Docker 能跑 → **[07 - 安装 NVIDIA Container Toolkit](07-安装NVIDIA-Container-Toolkit.md)**
