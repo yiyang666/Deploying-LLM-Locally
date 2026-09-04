@@ -224,6 +224,12 @@ done
 
 ## 常见问题
 
+**Q：听说有 Qwen3.8，是不是该下 Max / 2.4T？**  
+A：本教程单卡 48GB 请用 `Qwen/Qwen3.8-27B-FP8`。`Qwen3.8-Max` / `2.4T-A95B` 是数据中心级权重，本地这张卡装不下。
+
+**Q：启动时报不认识 Qwen3.8 / 架构错误？**  
+A：vLLM 镜像太旧。换更新的 `vllm/vllm-openai` 标签（建议 ≥ 0.27），或暂时回退 `Qwen/Qwen3.6-27B-FP8`。
+
 **Q：启动时报 CUDA / driver 版本不够？**  
 A：换更低 CUDA 的 vLLM 镜像，或回到 [04](04-更新Windows-NVIDIA驱动.md) 升级驱动。
 
