@@ -244,6 +244,9 @@ done
 
 ## 常见问题
 
+**Q：`VLLM_IMAGE` 不知道选哪个标签？**  
+A：打开 [Releases](https://github.com/vllm-project/vllm/releases) → 最新正式版 → **Docker Images** 表。驱动 CUDA ≥ 13.0 用默认 `vllm/vllm-openai:vX.Y.Z`；只有 12.x 用同页的 `-cu129`（或更旧的 cu12x）。不要用 `nightly` 入门。
+
 **Q：听说有 Qwen3.8，是不是该下 Max / 2.4T？**  
 A：本教程单卡 48GB 请用 `Qwen/Qwen3.8-27B-FP8`。`Qwen3.8-Max` / `2.4T-A95B` 是数据中心级权重，本地这张卡装不下。
 
